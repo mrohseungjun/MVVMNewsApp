@@ -27,7 +27,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
-    val TAG = "SearchNews Fragment"
+    val TAG = "SearchNewsFragment"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as NewsActivity).viewModel
@@ -35,7 +35,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("articl", it)
+                putSerializable("article", it)
             }
             findNavController().navigate(
                 R.id.action_searchNewsFragment_to_articleFragment,

@@ -20,7 +20,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
 
-    val TAG = "BreakingNEwsFragment"
+    val TAG = "BreakingNewsFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +29,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
-                putSerializable("articl", it)
+                putSerializable("article", it)
             }
             findNavController().navigate(
                 R.id.action_breakingNewsFragment_to_articleFragment,
