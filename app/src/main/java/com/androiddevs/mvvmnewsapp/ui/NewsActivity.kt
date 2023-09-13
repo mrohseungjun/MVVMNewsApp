@@ -23,7 +23,8 @@ class NewsActivity : AppCompatActivity() {
 
         viewModel = obtainViewModel()
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
 
@@ -35,7 +36,7 @@ class NewsActivity : AppCompatActivity() {
 
     private fun obtainViewModel(): NewsViewModel {
         val newsRepository = NewsRepository(getDatabaseInstance())
-        val viewModelProviderFactory = NewsViewModelProviderFactory(newsRepository)
+        val viewModelProviderFactory = NewsViewModelProviderFactory(application, newsRepository)
         return ViewModelProvider(this, viewModelProviderFactory)[NewsViewModel::class.java]
     }
 }
