@@ -10,7 +10,6 @@ import android.net.NetworkInfo
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androiddevs.mvvmnewsapp.NewsApplication
 import com.androiddevs.mvvmnewsapp.models.Article
@@ -34,18 +33,21 @@ class NewsViewModel(
     var searchNewsPage = 1
     var searchNewsResponse: NewsResponse? = null
 
+    var newSearchQuery:String? = null
+    var oldSearchQuery:String? = null
+
     init {
         getBreakingNews("us")
     }
 
     fun getBreakingNews(countryCode: String) = viewModelScope.launch {
         safeBreakingNewsCall(countryCode)
-
     }
 
     fun searchNews(searchQuery: String) = viewModelScope.launch {
         safeSearchNewsCall(searchQuery)
     }
+
 
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
@@ -64,13 +66,15 @@ class NewsViewModel(
         return Resource.Error(response.message())
     }
 
-    private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
-        if (response.isSuccessful) {
+    private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+        if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                searchNewsPage++
-                if (searchNewsResponse == null) {
+                if(searchNewsResponse == null || newSearchQuery != oldSearchQuery) {
+                    searchNewsPage = 1
+                    oldSearchQuery = newSearchQuery
                     searchNewsResponse = resultResponse
                 } else {
+                    searchNewsPage++
                     val oldArticles = searchNewsResponse?.articles
                     val newArticles = resultResponse.articles
                     oldArticles?.addAll(newArticles)
@@ -92,19 +96,19 @@ class NewsViewModel(
     }
 
     private suspend fun safeSearchNewsCall(searchQuery: String) {
+        newSearchQuery = searchQuery
         searchNews.postValue(Resource.Loading())
         try {
-            if (hasInternetConnection()) {
+            if(hasInternetConnection()) {
                 val response = newsRepository.searchNews(searchQuery, searchNewsPage)
                 searchNews.postValue(handleSearchNewsResponse(response))
             } else {
-                searchNews.postValue(Resource.Error("No internet Connection"))
+                searchNews.postValue(Resource.Error("No internet connection"))
             }
-
-        } catch (t: Throwable) {
-            when (t) {
+        } catch(t: Throwable) {
+            when(t) {
                 is IOException -> searchNews.postValue(Resource.Error("Network Failure"))
-                else -> searchNews.postValue(Resource.Error("Coversion Error"))
+                else -> searchNews.postValue(Resource.Error("Conversion Error"))
             }
         }
     }
@@ -112,17 +116,16 @@ class NewsViewModel(
     private suspend fun safeBreakingNewsCall(countryCode: String) {
         breakingNews.postValue(Resource.Loading())
         try {
-            if (hasInternetConnection()) {
+            if(hasInternetConnection()) {
                 val response = newsRepository.getBreakingNews(countryCode, breakingNewsPage)
                 breakingNews.postValue(handleBreakingNewsResponse(response))
             } else {
-                breakingNews.postValue(Resource.Error("No internet Connection"))
+                breakingNews.postValue(Resource.Error("No internet connection"))
             }
-
-        } catch (t: Throwable) {
-            when (t) {
+        } catch(t: Throwable) {
+            when(t) {
                 is IOException -> breakingNews.postValue(Resource.Error("Network Failure"))
-                else -> breakingNews.postValue(Resource.Error("Coversion Error"))
+                else -> breakingNews.postValue(Resource.Error("Conversion Error"))
             }
         }
     }
