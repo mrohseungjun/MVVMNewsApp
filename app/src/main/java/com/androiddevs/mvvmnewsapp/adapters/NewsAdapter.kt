@@ -1,12 +1,11 @@
 package com.androiddevs.mvvmnewsapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.androiddevs.mvvmnewsapp.R
 import com.androiddevs.mvvmnewsapp.databinding.ItemArticlePreviewBinding
 import com.androiddevs.mvvmnewsapp.models.Article
 import com.bumptech.glide.Glide
@@ -18,6 +17,7 @@ import kotlinx.android.synthetic.main.item_article_preview.view.tvTitle
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     inner class ArticleViewHolder(private val binding: ItemArticlePreviewBinding) :
+
         RecyclerView.ViewHolder(binding.root){
             fun bind(article: Article){
                 binding.tvDescription
@@ -61,7 +61,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             tvDescription.text = article.description
             tvPublishedAt.text = article.publishedAt
 
-            setOnItemClickListener {
+            setOnClickListener {
                 onItemClickListener?.let { it(article) }
             }
 
