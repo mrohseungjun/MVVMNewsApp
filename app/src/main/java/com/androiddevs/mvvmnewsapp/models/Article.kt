@@ -20,11 +20,11 @@ data class Article(
     val urlToImage: String?
 ) : Serializable{
 
-    /*override fun hashCode(): Int {
+    override fun hashCode(): Int {
         var result = id.hashCode()
         if(url.isNullOrEmpty()){
             result = 31 * result + url.hashCode()
         }
         return result
-    }*/
+    }
 }
