@@ -12,9 +12,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.androiddevs.mvvmnewsapp.NewsApplication
-import com.androiddevs.mvvmnewsapp.models.Article
-import com.androiddevs.mvvmnewsapp.models.NewsResponse
-import com.androiddevs.mvvmnewsapp.repository.NewsRepository
+import com.androiddevs.mvvmnewsapp.data.models.Article
+import com.androiddevs.mvvmnewsapp.data.models.NewsResponse
+import com.androiddevs.mvvmnewsapp.data.repository.NewsRepository
 import com.androiddevs.mvvmnewsapp.util.Resource
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -93,6 +93,7 @@ class NewsViewModel(
 
     fun deleteArticle(article: Article) = viewModelScope.launch {
         newsRepository.deleteArticle(article)
+        newsRepository.upsert(article)
     }
 
     private suspend fun safeSearchNewsCall(searchQuery: String) {

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.androiddevs.mvvmnewsapp.databinding.ItemArticlePreviewBinding
-import com.androiddevs.mvvmnewsapp.models.Article
+import com.androiddevs.mvvmnewsapp.data.models.Article
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_article_preview.view.ivArticleImage
 import kotlinx.android.synthetic.main.item_article_preview.view.tvDescription

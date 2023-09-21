@@ -8,8 +8,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.androiddevs.mvvmnewsapp.R
 import com.androiddevs.mvvmnewsapp.databinding.ActivityNewsBinding
-import com.androiddevs.mvvmnewsapp.db.ArticleDatabase
-import com.androiddevs.mvvmnewsapp.repository.NewsRepository
+import com.androiddevs.mvvmnewsapp.data.db.ArticleDatabase
+import com.androiddevs.mvvmnewsapp.data.repository.NewsRepository
 
 class NewsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewsBinding

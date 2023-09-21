@@ -1,4 +1,4 @@
-package com.androiddevs.mvvmnewsapp.api
+package com.androiddevs.mvvmnewsapp.data.api
 
 import com.androiddevs.mvvmnewsapp.util.Constants
 import okhttp3.OkHttpClient
