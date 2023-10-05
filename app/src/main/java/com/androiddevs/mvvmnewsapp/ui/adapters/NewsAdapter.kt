@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.item_article_preview.view.tvTitle
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     inner class ArticleViewHolder(private val binding: ItemArticlePreviewBinding) :
-
         RecyclerView.ViewHolder(binding.root){
             fun bind(article: Article){
                 binding.tvDescription
